@@ -3,11 +3,11 @@ package lecture.section04;
 import java.util.Calendar;
 import java.util.Date;
 
-public class claendar {
+public class Application1 {
     public static void main(String[] args) {
 
         Date now = new Date();
-        System.out.println("현재시작: " + now);
+        System.out.println("현재시각: " + now);
         System.out.println("millisecond 현재시각: "+now.getTime());
 
         Calendar calendar = Calendar.getInstance();
@@ -23,7 +23,7 @@ public class claendar {
         // %d : 정수출력 (%f: 실수, / %.2f : 소수점 두자리수까지, %c : 문자
         // %02d : 정수를 2자리수로 출력, 빈자리는 0으로 채움
         // %n : 줄바꿈
-        System.out.printf("%d-%02d-%01d%n", year, month, day);
+        System.out.printf("%d-%02d-%02%n", year, month, day);
 
 
 

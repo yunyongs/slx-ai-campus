@@ -6,7 +6,6 @@ public class Application2 {
 
     public static void main(String[] args) {
 
-
         /*
         * equals
         * - 객체가 정의한 기준으로 값이 같은지 비교한다. (동등성)

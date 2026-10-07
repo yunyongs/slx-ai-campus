@@ -6,7 +6,7 @@ public class Application1 {
     public static void main(String[] args) {
 
         //String 도 참조형 변수임
-        String text = "  Java Programing  ";
+        String text = "  Java Programming  ";
 
         //조회
         System.out.println("길이: " + text.length());

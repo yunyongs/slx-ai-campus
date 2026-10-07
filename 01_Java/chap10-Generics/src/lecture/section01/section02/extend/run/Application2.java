@@ -3,11 +3,12 @@ package lecture.section01.section02.extend.run;
 import lecture.section01.section02.extend.Rabbit;
 import lecture.section01.section02.extend.RabbitFarm;
 
-public class Application1 {
-
+public class Application2 {
     /*
-    * extends 키워드를 사용하면 특정 타입만 사용하도록 제한, 타입의 자식클래스만 사용 가능
-     */
-    RabbitFarm<Rabbit> farm1 = new RabbitFarm<>();
+    * 와일드 카드 [ ? ]
+    * <?> : 제한 없음
+    * <? extends Type> : 와일드카드의 상한 제한 (TYPE과 TYPE의 후손으로만 사용 가능)
+    * <? super TYPE> : 와일드카드의 하한 제한 (TYPE과 TYPE의 부모로만 사용 가능)
+    * */
 
 }
