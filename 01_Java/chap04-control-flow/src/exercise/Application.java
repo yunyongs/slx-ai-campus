@@ -1,9 +1,9 @@
 package exercise;
 
-public class Aplication {
+public class Application {
     public static void main(String[] args) {
         Answer4 a4 = new Answer4();
-        a4.Pass();
+        a4.shiftPass();
     }
 
 }

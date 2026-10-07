@@ -28,14 +28,3 @@ bin/
 
 ### Mac OS ###
 .DS_Store
-
-.env
-.env-docker
-
-.omc/
-.mcp.json
-
-CLAUDE.md
-.claude/
-
-01_Java/practice/

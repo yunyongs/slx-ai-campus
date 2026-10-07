@@ -14,7 +14,7 @@ public class Answer4 {
      * e F d
      * */
 
-    public void Pass() {
+    public void shiftPass() {
         Scanner sc = new Scanner(System.in);
 
         System.out.print("문자열을 입력하세요 : ");
@@ -41,4 +41,5 @@ public class Answer4 {
 
 
     }
+
 }
