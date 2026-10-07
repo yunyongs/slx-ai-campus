@@ -1,4 +1,6 @@
 ### IntelliJ IDEA ###
+.idea/
+*.iml
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
@@ -28,6 +30,10 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### Windows ###
+desktop.ini
+Thumbs.db
 
 .env
 .env-docker
