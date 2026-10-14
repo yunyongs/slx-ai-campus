@@ -1,11 +1,11 @@
-package lecture.section01.syncronization;
+package lecture.section01.synchronization;
 
-public class Account {
+public class SafeAccount {
 
     private int balance = 1000; // 계좌 잔액
 
     // 출금
-    public void withdraw(int money) {
+    public synchronized void withdraw(int money) {
 
         if (balance >= money) {
 
@@ -17,8 +17,8 @@ public class Account {
             }
             balance -= money;
 
-            System.out.println(Thread.currentThread().getName()+"출금이 " + money + "원 완료되었습니다.");
-            System.out.println(Thread.currentThread().getName()+"잔액이 " + balance + "원 남았습니다.");
+            System.out.println(Thread.currentThread().getName()+": 출금이 " + money + "원 완료되었습니다.");
+            System.out.println(Thread.currentThread().getName()+": 잔액이 " + balance + "원 남았습니다.");
         }
 
     }
