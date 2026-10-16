@@ -12,7 +12,7 @@ public class Calculator {
     }
 
     // 매개변수를 가진 생성자
-    // double로 리턴, double로 매개변수 두 개를 받아서 더해주는 매소드
+    // double로 리턴, double로 매개변수 두 개를 받아서 더해주는 메소드
     public double add (double firstNumber, double secondNumber ) {
         return firstNumber + secondNumber;
     }

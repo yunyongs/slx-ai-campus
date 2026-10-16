@@ -24,7 +24,7 @@ public class Application {
         System.out.println("소요 시간: 약 " + (System.currentTimeMillis() - start) + "ms\n");
 
         /*
-        * 플렛폼스레드 : OS 스레드와 1:1로 묶이는 무거운 스레드
+        * 플랫폼스레드 : OS 스레드와 1:1로 묶이는 무거운 스레드
         * 가상스레드: 아주 가벼운 스레드 힙영역에 작은 객체형태로 만들어짐.
         * 가상 스레드가 동작하기 위해서는 (소수의)OS 스레드(캐리어스레드) 위에서 동작함
         * sleep(), 네트워크 대기같은 기다리는 작업을 만나면, OS 스레드 위에서 동작하다가 내려옴(unmount)

@@ -17,7 +17,7 @@ public class Application1 {
 
         // stream
         // 배열이나 컬렉션을 좀 더 잘 다루기 위한 문법
-        // Funtion
+        // Function
         // 리스트의 모든 요소를 대문자로 만드는 코드
         Function<String, String> function = (string) -> string.toUpperCase();
 

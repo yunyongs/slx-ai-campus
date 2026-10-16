@@ -9,7 +9,7 @@
 SELECT
     ASCII('A'),
     CHAR(65);
--- (Workbench의 버그로 CHAR(65)의 결과가 'BLOB'으로 보일 수 있는데 일반 명령형 모드에서는 정상적으로 'A'로 출력된다.
+-- (Workbench의 버그로 CHAR(65)의 결과가 'BLOB'으로 보일 수 있는데 일반 명령행 모드에서는 정상적으로 'A'로 출력된다.
 -- 'BLOB' 글자에서 마우스 오른쪽 버튼 클릭하고 'Open Value in Viewer' 선택 후 Text 탭에서 확인할 수 있다.)
 
 -- BIT_LENGTH(문자열), CHAR_LENGTH(문자열), LENGTH(문자열)

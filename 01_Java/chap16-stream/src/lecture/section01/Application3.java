@@ -18,13 +18,13 @@ public class Application3 {
         * *//*
 
         List<Integer> integerList = IntStream.of(5, 2, 4, 6, 16, 4572)
-                .boxed()// 기본 타임을 참조타입으로 변경해 주는 것
+                .boxed()// 기본 타입을 참조타입으로 변경해 주는 것
                 .sorted()
                 .toList();
                 //.collect(Collectors.toList());
 
         List<Integer> integerList2 = IntStream.of(5, 2, 4, 6, 16, 4572)
-                .boxed()// 기본 타임을 참조타입으로 변경해 주는 것
+                .boxed()// 기본 타입을 참조타입으로 변경해 주는 것
                 .sorted((s1, s2) -> s2.compareTo(s1))
                 .toList();
         //.collect(Collectors.toList());

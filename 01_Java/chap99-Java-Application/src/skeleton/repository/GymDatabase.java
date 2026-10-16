@@ -132,7 +132,7 @@ public class GymDatabase {
     public void updateMemberInfo(int memberId, String name, int age, String phone) {
         // TODO: 위 요구사항에 맞게 기본 정보 수정 코드를 작성하세요.
         Member member = getMember(memberId);
-        if(member != null) { //엑티브 여부와 관계 없이 DB에 존재하는지 여부만 판단해야하지.
+        if(member != null) { //액티브 여부와 관계 없이 DB에 존재하는지 여부만 판단해야하지.
             /*member.setMemberId(memberId);*/ // 회원 ID를 수정해서는 안 된다.
             member.setName(name);
             member.setAge(age);

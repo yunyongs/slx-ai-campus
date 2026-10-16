@@ -35,10 +35,10 @@ public class Application0 {
 
 
         //Function: 매개변수 o, 리턴값 o, apply()
-        Function<String , Integer> funtion = (str) -> Integer.parseInt(str);
-        //System.out.println(funtion.apply(50)+5);
+        Function<String , Integer> function = (str) -> Integer.parseInt(str);
+        //System.out.println(function.apply(50)+5);
 
-        // Preducate: 매개변수 0, 리턴값 o, test() *Boolean값을 리턴
+        // Predicate: 매개변수 o, 리턴값 o, test() *Boolean값을 리턴
         Predicate<Integer> isEven = n -> n%2 == 0;
     }
 }

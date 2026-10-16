@@ -7,7 +7,7 @@ import java.util.function.Consumer;
 public class Application0 {
     public static void main(String[] args) {
         /*
-        * 매소드 참조
+        * 메소드 참조
         * - 이미 존재하는 메소드를 람다식에서 호출 할 때 사용하는 축약 문법
         *
         * *//*

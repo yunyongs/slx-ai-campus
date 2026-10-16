@@ -6,7 +6,7 @@ public class Application2 {
     public static void main(String[] args) {
 
         /*
-        * Stream <R> map (Funtion<? super T, ? extends R mapper)
+        * Stream <R> map (Function<? super T, ? extends R> mapper)
         * 스트림에 들어 있는 데이터를 특정 람다식을 통해 데이터를 가공하고
         * 새로운 스트림에 담아줌
         * */

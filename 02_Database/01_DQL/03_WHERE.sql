@@ -95,7 +95,7 @@ ORDER BY menu_price;
 
 -- like 연산자
 -- 와일드 카드
--- _ 딱 힌글자
+-- _ 딱 한글자
 -- % 글자수 제한 없음
 SELECT tbl_menu.menu_name
 from tbl_menu
