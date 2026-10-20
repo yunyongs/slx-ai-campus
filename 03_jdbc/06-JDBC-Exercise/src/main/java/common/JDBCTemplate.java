@@ -38,7 +38,7 @@ public class JDBCTemplate {
     public static void close(Statement stmt) {
 
         try {
-            if(stmt != null & !stmt.isClosed()) {
+            if(stmt != null && !stmt.isClosed()) {
                 stmt.close();;
             }
         } catch (SQLException e) {
@@ -48,7 +48,7 @@ public class JDBCTemplate {
     public static void close(ResultSet rset) {
 
         try {
-            if(rset != null & !rset.isClosed()) {
+            if(rset != null && !rset.isClosed()) {
                 rset.close();;
             }
         } catch (SQLException e) {
@@ -59,7 +59,7 @@ public class JDBCTemplate {
     public static void close(Connection connection) {
 
         try {
-            if(connection != null & !connection.isClosed()) {
+            if(connection != null && !connection.isClosed()) {
                 connection.close();;
             }
         } catch (SQLException e) {
