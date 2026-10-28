@@ -1,0 +1,6 @@
+GET http://localhost:8081/service?message=http파일테스트
+
+POST http://localhost:8081/service
+Content-Type: application/x-www-form-urlencoded; charset=UTF-8
+
+message=안녕하세요
