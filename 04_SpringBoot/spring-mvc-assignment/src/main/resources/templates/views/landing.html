@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>문제 5. 리다이렉트 결과</title>
+</head>
+<body>
+<h1>문제 5. 리다이렉트 결과</h1>
+<p><strong th:text="${handlerController}">Controller</strong> · <code th:text="${requestInfo}">GET /</code></p>
+<p th:if="${flashMessage != null}" th:text="${flashMessage}"></p>
+<p th:if="${flashMessage == null}">표시할 이동 메시지가 없습니다.</p>
+<a href="/views/landing">다시 GET 요청하기</a> <small>ViewController · GET /views/landing</small><br>
+<a href="/#problem05">뷰 실습으로</a> <small>HomeController · GET /</small><br>
+<a href="/">과제 홈으로</a>
+</body>
+</html>
+

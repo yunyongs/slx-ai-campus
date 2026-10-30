@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>loginResult</title>
+</head>
+<body>
+<h1>Session에 담긴 값 확인하기</h1>
+
+<h3 th:if="${session.id != null}" th:text="|${session.id}님 환영합니다.|"></h3>
+<div th:if="${session.id != null}">
+    <button onclick="location.href='logout'">로그아웃</button>
+</div>
+
+<h3>[Session]정보</h3>
+<div th:if="${session.id != null}">
+    <p th:text="${session}"></p>
+</div>
+</body>
+</html>

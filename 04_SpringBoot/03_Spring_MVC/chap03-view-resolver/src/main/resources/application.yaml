@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: chap03-view-resolver
+
+# thymeleaf Starter의 자동 설정으로 인해 작성 안 해도 됨.
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html

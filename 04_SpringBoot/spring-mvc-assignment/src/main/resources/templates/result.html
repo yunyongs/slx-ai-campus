@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>실행 결과</title>
+</head>
+<body>
+<h1 th:text="|문제 ${problemNumber}. 실행 결과|">실행 결과</h1>
+<p><strong th:text="${handlerController}">Controller</strong> · <code th:text="${requestInfo}">GET /</code></p>
+<p th:text="${message}"></p>
+<p th:if="${roomNo != null}">스터디룸 번호: <span th:text="${roomNo}">7</span></p>
+<a href="/">과제 홈으로</a>
+</body>
+</html>
+

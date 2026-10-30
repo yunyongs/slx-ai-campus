@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>문제 4. 세션과 요청 본문</title>
+</head>
+<body>
+<h1>문제 4. 세션과 요청 본문</h1>
+<p><strong th:text="${handlerController}">Controller</strong> · <code th:text="${requestInfo}">GET /</code></p>
+<h2>세션</h2>
+<p th:if="${session.nickname != null}"><span th:text="${session.nickname}">김학생</span>님이 접속 중입니다.</p>
+<p th:if="${session.nickname == null}">로그인 정보가 없습니다.</p>
+<form action="/session/login" method="post">
+    <label>닉네임: <input name="nickname" value="김학생" required></label><br>
+    <button type="submit">로그인</button> <small>SessionBodyController · POST /session/login</small>
+</form>
+<form action="/session/logout" method="post">
+    <button type="submit">로그아웃</button> <small>SessionBodyController · POST /session/logout</small>
+</form>
+<a href="/session/home">다시 GET 요청하기</a> <small>SessionBodyController · GET /session/home</small>
+<hr>
+<h2>요청 본문</h2>
+<form id="body-form">
+    <label>요청 본문: <textarea id="raw-body">스터디룸 이용 문의</textarea></label><br>
+    <button type="submit" id="body-submit">본문·헤더·쿠키 확인</button> <small>SessionBodyController · POST /session/inspect</small>
+</form>
+<p id="body-status" role="status" aria-live="polite"></p>
+<iframe id="body-result" title="문제 4. 요청 본문 결과" hidden sandbox="allow-same-origin allow-top-navigation-by-user-activation"></iframe><br>
+<a href="/">과제 홈으로</a>
+<script>
+document.getElementById('body-form').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    const status = document.getElementById('body-status');
+    const button = document.getElementById('body-submit');
+    const frame = document.getElementById('body-result');
+    button.disabled = true;
+    status.textContent = '';
+    try {
+        const response = await fetch('/session/inspect', {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+            credentials: 'same-origin',
+            body: document.getElementById('raw-body').value
+        });
+        frame.srcdoc = await response.text();
+        frame.hidden = false;
+        status.textContent = 'HTTP ' + response.status;
+    } catch (error) {
+        status.textContent = '요청 실패';
+    } finally {
+        button.disabled = false;
+    }
+});
+</script>
+</body>
+</html>
+

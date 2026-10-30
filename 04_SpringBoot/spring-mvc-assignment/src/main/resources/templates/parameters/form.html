@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>문제 2. 요청 파라미터</title>
+</head>
+<body>
+<h1>문제 2. 요청 파라미터</h1>
+<p><strong th:text="${handlerController}">Controller</strong> · <code th:text="${requestInfo}">GET /</code></p>
+<h2>요금 계산</h2>
+<form action="/parameters/calculate" method="post">
+    <label>스터디룸: <input name="roomName" value="A룸" required></label><br>
+    <label>사용 시간: <input name="hours" type="number" value="3" min="1" max="8" required></label><br>
+    <label>시간당 요금: <input name="price" type="number" value="5000" min="0" max="10000" required></label><br>
+    <button type="submit">총 요금 계산</button> <small>ParameterController · POST /parameters/calculate</small>
+</form>
+<hr>
+<h2>검색 조건</h2>
+<form action="/parameters/search" method="get">
+    <label>검색어: <input name="keyword" value="자바" required></label><br>
+    <label>페이지: <input name="page" type="number" min="1"></label><br>
+    <label>태그: <input name="tag"></label><br>
+    <button type="submit">검색 조건 확인</button> <small>ParameterController · GET /parameters/search</small>
+</form>
+<a href="/">과제 홈으로</a>
+</body>
+</html>
+

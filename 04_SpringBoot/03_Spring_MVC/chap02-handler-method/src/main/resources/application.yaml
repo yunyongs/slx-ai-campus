@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: chap02-handler-method

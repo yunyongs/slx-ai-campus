@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: spring-mvc-assignment
+  thymeleaf:
+    cache: false
+server:
+  port: 8081

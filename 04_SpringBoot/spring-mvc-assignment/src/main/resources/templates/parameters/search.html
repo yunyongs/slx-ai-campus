@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>문제 2. 검색 조건 결과</title>
+</head>
+<body>
+<h1>문제 2. 검색 조건 결과</h1>
+<p><strong th:text="${handlerController}">Controller</strong> · <code th:text="${requestInfo}">GET /</code></p>
+검색어: <span th:text="${keyword}">자바</span><br>
+페이지: <span th:text="${page}">1</span><br>
+태그: <span th:text="${tag == null or tag == '' ? '없음' : tag}">없음</span><br>
+<a href="/parameters/form">다시 입력</a> <small>ParameterController · GET /parameters/form</small><br>
+<a href="/">과제 홈으로</a>
+</body>
+</html>
+

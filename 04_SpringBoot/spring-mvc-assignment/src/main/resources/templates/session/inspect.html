@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>문제 4. 요청 본문 결과</title>
+</head>
+<body>
+<h1>문제 4. 요청 본문 결과</h1>
+<p><strong th:text="${handlerController}">Controller</strong> · <code th:text="${requestInfo}">GET /</code></p>
+요청 본문:
+<pre th:text="${rawBody}">스터디룸 이용 문의</pre>
+Content-Type: <span th:text="${contentType}">text/plain;charset=UTF-8</span><br>
+JSESSIONID: <span th:text="${sessionId}">없음</span><br>
+<a href="/session/home" target="_top">다시 입력</a> <small>SessionBodyController · GET /session/home</small><br>
+<a href="/" target="_top">과제 홈으로</a>
+</body>
+</html>
+

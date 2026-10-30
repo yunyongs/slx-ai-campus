@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Spring MVC 과제</title>
+</head>
+<body>
+<h1>Spring MVC 과제</h1>
+<p><strong th:text="${handlerController}">Controller</strong> · <code th:text="${requestInfo}">GET /</code></p>
+
+<h2 id="problem01">문제 1. 요청 매핑</h2>
+<a href="/mapping/welcome">GET 환영</a> <small>MappingController · GET /mapping/welcome</small>
+<form action="/mapping/welcome" method="post">
+    <button type="submit">POST 환영</button> <small>MappingController · POST /mapping/welcome</small>
+</form>
+<a href="/mapping/confirm">GET 확인</a> <small>MappingController · GET /mapping/confirm</small>
+<form action="/mapping/confirm" method="post">
+    <button type="submit">POST 확인</button> <small>MappingController · POST /mapping/confirm</small>
+</form>
+<a href="/mapping/notice">이용 공지</a> <small>MappingController · GET /mapping/notice</small><br>
+<a href="/mapping/help">이용 도움말</a> <small>MappingController · GET /mapping/help</small><br>
+<a href="/mapping/rooms/7">7번 스터디룸 조회</a> <small>MappingController · GET /mapping/rooms/7</small>
+
+<hr>
+<h2 id="problem02">문제 2. 요청 파라미터</h2>
+<a href="/parameters/form">파라미터 입력</a> <small>ParameterController · GET /parameters/form</small>
+
+<hr>
+<h2 id="problem03">문제 3. 예약 DTO와 리다이렉트</h2>
+<form action="/reservations/preview" method="post">
+    <label>신청자: <input name="applicant" value="김학생" required></label><br>
+    <label>스터디룸: <input name="roomName" value="A룸" required></label><br>
+    <label>사용 시간: <input name="hours" type="number" value="3" min="1" max="8" required></label><br>
+    <label>시간당 요금: <input name="price" type="number" value="5000" min="0" max="10000" required></label><br>
+    <button type="submit">예약 미리보기</button> <small>ReservationController · POST /reservations/preview</small>
+</form>
+<a href="/reservations/complete">예약 완료 화면</a> <small>ReservationController · GET /reservations/complete</small>
+
+<hr>
+<h2 id="problem04">문제 4. 세션과 요청 본문</h2>
+<a href="/session/home">세션·본문 입력</a> <small>SessionBodyController · GET /session/home</small>
+
+<hr>
+<h2 id="problem05">문제 5. 뷰 반환과 리다이렉트</h2>
+<a href="/views/string">String 뷰 반환</a> <small>ViewController · GET /views/string</small><br>
+<a href="/views/model-and-view">ModelAndView 반환</a> <small>ViewController · GET /views/model-and-view</small>
+<form action="/views/redirect" method="post">
+    <button type="submit">String 리다이렉트</button> <small>ViewController · POST /views/redirect</small>
+</form>
+<form action="/views/model-and-view-redirect" method="post">
+    <button type="submit">ModelAndView 리다이렉트</button> <small>ViewController · POST /views/model-and-view-redirect</small>
+</form>
+<a href="/views/landing">이동 완료 화면</a> <small>ViewController · GET /views/landing</small>
+</body>
+</html>
+

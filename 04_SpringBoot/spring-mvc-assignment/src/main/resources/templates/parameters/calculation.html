@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>문제 2. 요금 계산 결과</title>
+</head>
+<body>
+<h1>문제 2. 요금 계산 결과</h1>
+<p><strong th:text="${handlerController}">Controller</strong> · <code th:text="${requestInfo}">GET /</code></p>
+스터디룸: <span th:text="${roomName}">A룸</span><br>
+사용 시간: <span th:text="${hours}">3</span>시간<br>
+시간당 요금: <span th:text="${price}">5000</span>원<br>
+총 요금: <span th:text="${totalPrice}">15000</span>원<br>
+<a href="/parameters/form">다시 입력</a> <small>ParameterController · GET /parameters/form</small><br>
+<a href="/">과제 홈으로</a>
+</body>
+</html>
+

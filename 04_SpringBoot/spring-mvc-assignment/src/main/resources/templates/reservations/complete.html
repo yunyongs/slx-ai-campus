@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>문제 3. 예약 완료</title>
+</head>
+<body>
+<h1>문제 3. 예약 완료</h1>
+<p><strong th:text="${handlerController}">Controller</strong> · <code th:text="${requestInfo}">GET /</code></p>
+<p th:if="${flashMessage != null}" th:text="${flashMessage}"></p>
+<p th:if="${flashMessage == null}">표시할 완료 메시지가 없습니다.</p>
+<a href="/reservations/complete">다시 GET 요청하기</a> <small>ReservationController · GET /reservations/complete</small><br>
+<a href="/">과제 홈으로</a>
+</body>
+</html>
+

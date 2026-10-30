@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>문제 3. 예약 미리보기</title>
+</head>
+<body>
+<h1>문제 3. 예약 미리보기</h1>
+<p><strong th:text="${handlerController}">Controller</strong> · <code th:text="${requestInfo}">GET /</code></p>
+<form action="/reservations/complete" method="post" th:if="${reservation != null}">
+    신청자: <span th:text="${reservation.applicant}">김학생</span><br>
+    스터디룸: <span th:text="${reservation.roomName}">A룸</span><br>
+    사용 시간: <span th:text="${reservation.hours}">3</span>시간<br>
+    시간당 요금: <span th:text="${reservation.price}">5000</span>원<br>
+    총 요금: <span th:text="${totalPrice}">15000</span>원<br>
+    <input type="hidden" name="applicant" th:value="${reservation.applicant}">
+    <input type="hidden" name="roomName" th:value="${reservation.roomName}">
+    <input type="hidden" name="hours" th:value="${reservation.hours}">
+    <input type="hidden" name="price" th:value="${reservation.price}">
+    <button type="submit">예약 완료</button> <small>ReservationController · POST /reservations/complete</small>
+</form>
+<a href="/#problem03">다시 입력</a> <small>HomeController · GET /</small><br>
+<a href="/">과제 홈으로</a>
+</body>
+</html>
+
