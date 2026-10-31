@@ -16,6 +16,8 @@ import jakarta.servlet.http.HttpSession;
  * 홈 화면의 문제 4 링크를 열어 같은 브라우저에서 로그인·로그아웃·본문 전송을 확인한다.
  * 로그인은 닉네임을 저장하는 연습이다. 비밀번호나 실제 인증 기능은 구현하지 않는다.
  */
+@Controller
+@RequestMapping("/session")
 public class SessionBodyController {
 
     /**
@@ -28,8 +30,11 @@ public class SessionBodyController {
      * 확인: 로그인 폼과 본문 전송 폼이 표시된다.
      *       로그인 전에는 로그인 정보가 없습니다.가, 로그인 후에는 저장한 닉네임이 표시된다.
      */
+    @GetMapping("home")
     public String home() {
-        throw new UnsupportedOperationException("TODO 4-1");
+
+//        throw new UnsupportedOperationException("TODO 4-1");
+        return  "session/home";
     }
 
     /**
@@ -43,8 +48,13 @@ public class SessionBodyController {
      * 확인: 김학생으로 로그인하면 이동한 화면에 김학생이 표시된다.
      *       같은 브라우저에서 새로고침해도 유지되고, 다른 브라우저의 세션과 섞이지 않는다.
      */
-    public String login(String nickname, HttpSession session) {
-        throw new UnsupportedOperationException("TODO 4-2");
+    @PostMapping("login")
+    public String login(@RequestParam("nickname") String nickname, HttpSession session) {
+
+//        throw new UnsupportedOperationException("TODO 4-2");
+        session.setAttribute("nickname", nickname);
+
+        return "redirect:/session/home";
     }
 
     /**
@@ -57,8 +67,12 @@ public class SessionBodyController {
      *
      * 확인: 로그아웃 후 화면에 로그인 정보가 없습니다.가 표시되고 이전 닉네임이 남지 않는다.
      */
+    @PostMapping("logout")
     public String logout(HttpSession session) {
-        throw new UnsupportedOperationException("TODO 4-3");
+
+//        throw new UnsupportedOperationException("TODO 4-3");
+        session.invalidate();
+        return "redirect:/session/home";
     }
 
     /**
@@ -76,7 +90,22 @@ public class SessionBodyController {
      *       contentType=text/plain;charset=UTF-8
      *       JSESSIONID=sample-session 쿠키가 있으면 sessionId=sample-session, 없으면 sessionId=없음
      */
-    public String inspect(String rawBody, String contentType, String sessionId, Model model) {
-        throw new UnsupportedOperationException("TODO 4-4");
+    @PostMapping("inspect")
+    public String inspect(
+            @RequestBody String rawBody,
+            @RequestHeader("Content-Type") String contentType,
+            @CookieValue(value="JSESSIONID", required=false) String sessionId,
+            Model model
+    ) {
+        if (sessionId == null) {
+            sessionId = "없음";
+        }   
+//        throw new UnsupportedOperationException("TODO 4-4");
+        model.addAttribute("rawBody", rawBody);
+        model.addAttribute("contentType", contentType);
+        model.addAttribute("sessionId", sessionId);
+
+
+        return "session/inspect";
     }
 }
