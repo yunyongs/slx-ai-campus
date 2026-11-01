@@ -17,6 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
  * 이 Java 파일의 어노테이션과 TODO만 작성하고 제공 HTML과 설정은 수정하지 않는다.
  * 홈 화면의 문제 5 링크·버튼을 사용한다. 리다이렉트 후 주소창과 새로고침 결과도 확인한다.
  */
+@Controller
+@RequestMapping("/views")
 public class ViewController {
 
     /**
@@ -28,8 +30,14 @@ public class ViewController {
      *
      * 확인: 현재 요청에서 result 화면이 렌더링되고 문자열 뷰 응답입니다.가 표시된다.
      */
+    @RequestMapping("string")
     public String stringView(Model model) {
-        throw new UnsupportedOperationException("TODO 5-1");
+
+//        throw new UnsupportedOperationException("TODO 5-1");
+        model.addAttribute("message", "문자열 뷰 응답입니다.");
+
+        return "result";
+
     }
 
     /**
@@ -41,8 +49,14 @@ public class ViewController {
      *
      * 확인: 현재 요청에서 result 화면이 렌더링되고 ModelAndView 뷰 응답입니다.가 표시된다.
      */
-    public ModelAndView modelAndView() {
-        throw new UnsupportedOperationException("TODO 5-2");
+    @GetMapping("model-and-view")
+    public ModelAndView modelAndView(ModelAndView modelAndView) {
+        modelAndView.addObject("message", "ModelAndView 뷰 응답입니다.");
+        modelAndView.setViewName("result");
+        return modelAndView;
+//        throw new UnsupportedOperationException("TODO 5-2");
+
+
     }
 
     /**
@@ -55,8 +69,12 @@ public class ViewController {
      * 확인: HTTP 302 후 브라우저가 GET /views/landing을 새로 요청한다.
      *       첫 화면에는 문자열 리다이렉트가 완료되었습니다.가 표시되고 GET 새로고침 시 사라진다.
      */
+    @PostMapping("redirect")
     public String redirect(RedirectAttributes redirectAttributes) {
-        throw new UnsupportedOperationException("TODO 5-3");
+        redirectAttributes.addFlashAttribute("flashMessage", "문자열 리다이렉트가 완료되었습니다.");
+//        throw new UnsupportedOperationException("TODO 5-3");
+
+        return "redirect:/views/landing";
     }
 
     /**
@@ -70,8 +88,13 @@ public class ViewController {
      * 확인: HTTP 302 후 GET /views/landing으로 이동한다.
      *       첫 화면에는 ModelAndView 리다이렉트가 완료되었습니다.가 표시되고 GET 새로고침 시 사라진다.
      */
-    public ModelAndView modelAndViewRedirect(RedirectAttributes redirectAttributes) {
-        throw new UnsupportedOperationException("TODO 5-4");
+    @PostMapping("model-and-view-redirect")
+    public ModelAndView modelAndViewRedirect(RedirectAttributes redirectAttributes, ModelAndView mv) {
+        redirectAttributes.addFlashAttribute("flashMessage", "ModelAndView 리다이렉트가 완료되었습니다.");
+        mv.setViewName("redirect:/views/landing");
+        return mv;
+//        throw new UnsupportedOperationException("TODO 5-4");
+
     }
 
     /**
@@ -84,7 +107,10 @@ public class ViewController {
      * 확인: 문제 5-3 또는 5-4 직후 첫 GET에는 해당 문구가 표시된다.
      *       직접 접근하거나 다시 GET하면 표시할 이동 메시지가 없습니다.가 표시된다.
      */
+    @GetMapping("landing")
     public String landing() {
-        throw new UnsupportedOperationException("TODO 5-5");
+
+//        throw new UnsupportedOperationException("TODO 5-5");
+        return "views/landing";
     }
 }
