@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Error</title>
+</head>
+<body>
+<!-- 핸들러가 model에 담은 title / message를 표시, 없으면 ?: 뒤의 기본값 -->
+<h1 th:text="${title} ?: 'Exception occurred'">Exception occurred</h1>
+<h3 th:text="${message} ?: '알 수 없는 오류가 발생했습니다.'">message</h3>
+
+<button onclick="location.href='/'">메인으로</button>
+</body>
+</html>

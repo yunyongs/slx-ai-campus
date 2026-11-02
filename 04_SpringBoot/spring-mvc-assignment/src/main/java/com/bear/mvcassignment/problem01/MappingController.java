@@ -104,10 +104,13 @@ public class MappingController {
      *       /mapping/rooms/abc -> HTTP 400 (Spring의 int 변환 실패)
      */
     @GetMapping("rooms/{roomNo}")
-    public String room(Model model, @PathVariable("roomNo") int roomNo) {
+    public String room(Model model, @PathVariable int roomNo) {
+    //public String room(Model model, @PathVariable("roomNo") int No) { //동일한데 "roomNo"를 받으면 변수명을 다르게 할 수 있다. 그러나 일반적으로 이 경우가 불필요. 위처럼 하는 경우가 일반적
         model.addAttribute("roomNo", roomNo);                       // → ${roomNo} (int)
         model.addAttribute("message", roomNo + "번 스터디룸입니다.");  // 7 + "번…" → "7번 스터디룸입니다."
         return "result";
     }
+
+    //PathVariable은 단건 조회 기능을 구현할 때 주로 사용한다.
 
 }

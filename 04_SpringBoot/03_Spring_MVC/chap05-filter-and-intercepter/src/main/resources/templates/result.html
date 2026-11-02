@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+</head>
+<body>
+<h1>요청 처리 완료</h1>
+
+<p th:text="|인터셉터 수행시간: ${interceptorInterval} ms|">Interceptor 수행시간</p>
+
+<button onclick="location.href='/'">
+    돌아가기
+</button>
+</body>
+</html>

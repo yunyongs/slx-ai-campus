@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>main</title>
+</head>
+<body>
+<h1>Exception Handler 사용하기</h1>
+
+<h3>@ExceptionHandler</h3>
+
+<p>GET /controller-null</p>
+<button onclick="location.href='/controller-null'">NullPointerException 테스트</button>
+
+<p>GET /controller-user</p>
+<button onclick="location.href='/controller-user'">사용자 정의 Exception 테스트</button>
+
+<hr>
+
+<h3>@ControllerAdvice</h3>
+
+<p>GET /other-controller-null</p>
+<button onclick="location.href='/other-controller-null'">다른 컨트롤러 NullPointerException 테스트</button>
+
+<p>GET /other-controller-user</p>
+<button onclick="location.href='/other-controller-user'">다른 컨트롤러 사용자 정의 Exception 테스트</button>
+
+<p>GET /other-controller-array</p>
+<button onclick="location.href='/other-controller-array'">ArrayIndexOutOfBoundsException 테스트</button>
+</body>
+</html>

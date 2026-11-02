@@ -5,6 +5,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 
+//URL참고, REST API에서는 url은 복수형 parameters로 하는 것이 권고된다
 /**
  * 문제 2. 요청 파라미터와 암시적 뷰
  *
@@ -32,7 +33,7 @@ public class ParameterController {
      */
     @GetMapping("form")
     public void form() {
-    }
+    } //반환형이 없을 때 논리뷰이름은 parameters/form이 된다.
 
     /**
      * 문제 2-2. WebRequest로 요금 계산
@@ -80,7 +81,7 @@ public class ParameterController {
      */
     @GetMapping("search")
     public String search(@RequestParam(value = "keyword", required = true) String keyword,
-                         @RequestParam(value = "page", defaultValue = "1") int page,
+                         @RequestParam(value = "page", defaultValue = "1") int page, //http 프로토콜로 값을 보낼 때는 ""으로 감싸서 보낸다. 즉 숫자인 1도, "1"로 보낸다.
                          @RequestParam(value = "tag", required = false) String tag,
                          Model model) {
 //        throw new UnsupportedOperationException("TODO 2-3");

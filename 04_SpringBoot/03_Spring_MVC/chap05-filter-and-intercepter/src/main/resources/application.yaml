@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: chap05-filter-and-intercepter
