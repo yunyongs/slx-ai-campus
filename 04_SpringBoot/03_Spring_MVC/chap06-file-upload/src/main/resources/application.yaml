@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: chap06-file-upload
+
+  servlet:
+    #Multi-part 파일 업로드 관련 설정
+    multipart:
+      max-file-size: 10MB # 파일 하나의 최대 크기 설정
+      max-request-size: 10MB # 요청당 최대 크기를 10MB
+
+file:
+  upload:
+    mac:
+      path: /Users/yuny/Downloads/upload
+    windows:
+      path: /Users/yuny/Downloads/upload

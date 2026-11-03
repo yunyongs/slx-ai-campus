@@ -23,7 +23,7 @@ public class BadWordFilter implements Filter {
             return;
         }
 
-        System.out.println("[BadWord 통과] keyword" + keyword );
+        System.out.println("[BadWord 통과] keyword=" + keyword );
         chain.doFilter(request, response);
 
     }

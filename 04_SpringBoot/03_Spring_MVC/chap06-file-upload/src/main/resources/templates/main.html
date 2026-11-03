@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Document</title>
+</head>
+<body>
+    <h1>기본 파일 업로드</h1>
+    <form action="/basic-file-upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <button type="submit">업로드</button>
+    </form>
+    <div th:if="${message != null}">
+        <h2 th:text="${message}"></h2>
+        <p>원본 파일명: <span th:text="${originalFileName}"></span></p>
+        <p>저장 경로: <span th:text="${savedPath}"></span></p>
+    </div>
+
+<hr>
+    <h1>SingleFile 업로드하기 (빌드폴더내부)</h1>
+    <form action="/single-file" method="post" enctype="multipart/form-data">
+        파일 : <input type="file" name="singleFile"> <br>
+        파일 설명 : <input type="text" name="singleFileDescription"><br>
+        <button type="submit">업로드</button>
+    </form>
+
+<hr>
+    <h1>SingleFile 업로드하기 (빌드폴더외부)</h1>
+    <form action="/external-single-file" method="post" enctype="multipart/form-data">
+        파일 : <input type="file" name="singleFile"> <br>
+        파일 설명 : <input type="text" name="singleFileDescription"><br>
+        <button type="submit">업로드</button>
+    </form>
+</body>
+</html>

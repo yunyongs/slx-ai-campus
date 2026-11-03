@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>result</title>
+</head>
+<body>
+
+<h1 th:text="${ message }"></h1>
+
+<div th:if="${ img != null }">
+    <img th:src="${ img }" width="300" height="300"/>
+    <p th:text="${ singleFileDescription }"></p>
+</div>
+<div th:else>
+    <div th:each="img : ${imgs}">
+        <img th:src="${img}" width="300" height="300"/>
+    </div>
+    <p th:text="${ multiFileDescription }"></p>
+</div>
+
+<h1>SingleFile 업로드하기 (외부폴더)</h1>
+<form action="/external-single-file" method="post" enctype="multipart/form-data">
+    파일 : <input type="file" name="singleFile"> <br>
+    파일 설명 : <input type="text" name="singleFileDescription"><br>
+    <button type="submit">업로드</button>
+</form>
+
+</body>
+</html>
