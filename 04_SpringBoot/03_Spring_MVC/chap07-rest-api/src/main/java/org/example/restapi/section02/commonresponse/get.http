@@ -1,0 +1,13 @@
+# 강사 코드 (2026-11-04 수업). IntelliJ 의 HTTP Client 로 실행한다. 각 요청 왼쪽의 ▶ 클릭
+
+### 공통응답(제네릭) 전체조회
+GET http://localhost:8080/common-response/users
+
+
+### 공통응답(제네릭) 단건조회
+GET http://localhost:8080/common-response/users/1
+
+
+### 공통응답(제네릭) 반환데이터가 없는경우(Void)
+GET http://localhost:8080/common-response/health
+

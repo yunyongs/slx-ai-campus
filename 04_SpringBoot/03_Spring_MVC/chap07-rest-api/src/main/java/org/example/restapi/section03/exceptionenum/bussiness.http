@@ -1,0 +1,15 @@
+# 강사 코드 (2026-11-04 수업). IntelliJ 의 HTTP Client 로 실행한다. 각 요청 왼쪽의 ▶ 클릭
+# 주의 : 이 프로젝트의 경로는 /enum-error (단수) 이므로, 실행하려면 아래 URL 의 enum-errors 를 enum-error 로 고쳐야 한다
+
+###
+GET http://localhost:8080/enum-errors/users/0
+
+
+###
+GET http://localhost:8080/enum-errors/users/5
+
+
+###
+GET http://localhost:8080/enum-errors/users/check-name?
+    userName=유관순
+

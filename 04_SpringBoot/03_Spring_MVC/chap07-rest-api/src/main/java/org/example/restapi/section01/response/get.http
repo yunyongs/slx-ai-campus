@@ -1,0 +1,21 @@
+### 1. Get request hello
+GET http://localhost:8080/response/hello
+
+### 2. random (int)
+GET http://localhost:8080/response/random
+
+### 3. message (Message)
+GET http://localhost:8080/response/message
+
+### 4. list
+
+GET http://localhost:8080/response/list
+
+### 5. map
+GET http://localhost:8080/response/map
+
+### 6. ResponseEntity
+GET http://localhost:8080/response/entity
+
+
+GET http://localhost:8080/commonresponse/entity

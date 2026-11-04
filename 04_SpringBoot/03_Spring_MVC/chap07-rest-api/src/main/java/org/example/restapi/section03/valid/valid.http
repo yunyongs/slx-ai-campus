@@ -1,0 +1,191 @@
+# 강사 코드 (2026-11-04 수업). IntelliJ 의 HTTP Client 로 실행한다. 각 요청 왼쪽의 ▶ 클릭
+
+### 1. 정상 요청
+POST http://localhost:8080/valid/users
+Content-Type: application/json
+
+{
+  "no": 1,
+  "id": "test_user",
+  "pwd": "Password1!",
+  "name": "홍길동",
+  "enrollAt": "2025-01-01"
+}
+
+### 2. 아이디 누락 - @NotNull, @NotBlank 위반
+POST http://localhost:8080/valid/users
+Content-Type: application/json
+
+{
+  "no": 1,
+  "pwd": "Password1!",
+  "name": "홍길동",
+  "enrollAt": "2025-01-01"
+}
+
+### 3. 아이디 공백 - @NotBlank 위반
+POST http://localhost:8080/valid/users
+Content-Type: application/json
+
+{
+  "no": 1,
+  "id": "        ",
+  "pwd": "Password1!",
+  "name": "홍길동",
+  "enrollAt": "2025-01-01"
+}
+
+### 4. 아이디가 8자 미만 - @Size 위반
+POST http://localhost:8080/valid/users
+Content-Type: application/json
+
+{
+  "no": 1,
+  "id": "user123",
+  "pwd": "Password1!",
+  "name": "홍길동",
+  "enrollAt": "2025-01-01"
+}
+
+### 5. 아이디가 20자 초과 - @Size 위반
+POST http://localhost:8080/valid/users
+Content-Type: application/json
+
+{
+  "no": 1,
+  "id": "abcdefghijklmnopqrstu",
+  "pwd": "Password1!",
+  "name": "홍길동",
+  "enrollAt": "2025-01-01"
+}
+
+### 6. 아이디에 허용되지 않은 문자 사용 - @Pattern 위반
+POST http://localhost:8080/valid/users
+Content-Type: application/json
+
+{
+  "no": 1,
+  "id": "test-user!",
+  "pwd": "Password1!",
+  "name": "홍길동",
+  "enrollAt": "2025-01-01"
+}
+
+### 7. 비밀번호가 8자 미만 - @Size, @Pattern 위반
+POST http://localhost:8080/valid/users
+Content-Type: application/json
+
+{
+  "no": 1,
+  "id": "test_user",
+  "pwd": "Pass1!",
+  "name": "홍길동",
+  "enrollAt": "2025-01-01"
+}
+
+### 8. 비밀번호에 대문자 누락 - @Pattern 위반
+POST http://localhost:8080/valid/users
+Content-Type: application/json
+
+{
+  "no": 1,
+  "id": "test_user",
+  "pwd": "password1!",
+  "name": "홍길동",
+  "enrollAt": "2025-01-01"
+}
+
+### 9. 비밀번호에 소문자 누락 - @Pattern 위반
+POST http://localhost:8080/valid/users
+Content-Type: application/json
+
+{
+  "no": 1,
+  "id": "test_user",
+  "pwd": "PASSWORD1!",
+  "name": "홍길동",
+  "enrollAt": "2025-01-01"
+}
+
+### 10. 비밀번호에 숫자 누락 - @Pattern 위반
+POST http://localhost:8080/valid/users
+Content-Type: application/json
+
+{
+  "no": 1,
+  "id": "test_user",
+  "pwd": "Password!",
+  "name": "홍길동",
+  "enrollAt": "2025-01-01"
+}
+
+### 11. 비밀번호에 특수문자 누락 - @Pattern 위반
+POST http://localhost:8080/valid/users
+Content-Type: application/json
+
+{
+  "no": 1,
+  "id": "test_user",
+  "pwd": "Password1",
+  "name": "홍길동",
+  "enrollAt": "2025-01-01"
+}
+
+### 12. 이름 누락 - @NotNull 위반
+POST http://localhost:8080/valid/users
+Content-Type: application/json
+
+{
+  "no": 1,
+  "id": "test_user",
+  "pwd": "Password1!",
+  "enrollAt": "2025-01-01"
+}
+
+### 13. 이름이 2자 미만 - @Size 위반
+POST http://localhost:8080/valid/users
+Content-Type: application/json
+
+{
+  "no": 1,
+  "id": "test_user",
+  "pwd": "Password1!",
+  "name": "홍",
+  "enrollAt": "2025-01-01"
+}
+
+### 14. 이름이 5자 초과 - @Size 위반
+POST http://localhost:8080/valid/users
+Content-Type: application/json
+
+{
+  "no": 1,
+  "id": "test_user",
+  "pwd": "Password1!",
+  "name": "홍길동입니다",
+  "enrollAt": "2025-01-01"
+}
+
+### 15. 가입일이 미래 날짜 - @Past 위반
+POST http://localhost:8080/valid/users
+Content-Type: application/json
+
+{
+  "no": 1,
+  "id": "test_user",
+  "pwd": "Password1!",
+  "name": "홍길동",
+  "enrollAt": "2099-01-01"
+}
+
+### 16. 여러 검증 조건을 동시에 위반
+POST http://localhost:8080/valid/users
+Content-Type: application/json
+
+{
+  "no": 1,
+  "id": " ",
+  "pwd": "1234",
+  "name": "홍길동입니다",
+  "enrollAt": "2099-01-01"
+}

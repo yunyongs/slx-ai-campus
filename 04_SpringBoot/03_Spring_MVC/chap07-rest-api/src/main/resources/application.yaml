@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: chap07-rest-api
+
+# https://springdoc.org/#properties
+# Swagger config
+springdoc:
+  api-docs:
+    # OpenAPI 명세서(JSON, for machine) 경로. 기본값: /v3/api-docs
+    path: /v3/api-docs
+    # 강사 코드 : path: /v1/api-docs   # 커스텀 UI 를 만들거나 다른 도구와 연동할 때 쓰는 JSON 주소
+  swagger-ui:
+    # Swagger UI(for human) 접속 경로
+    path: /swagger-ui.html
+    # 각 API 호출 후 실제 소요 시간을 표시
+    display-request-duration: true
+    # http 메소드 순서로 정렬하겠다.
+    operations-sorter: method
