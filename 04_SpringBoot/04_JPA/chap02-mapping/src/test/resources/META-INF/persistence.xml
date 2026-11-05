@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd"
+             version="3.2">
+
+    <!-- 엔티티 매니저 팩토리를 식별하기 위한 이름 설정-->
+    <persistence-unit name="jpatest">
+        <!-- 엔티티 클래스를 정의 -->
+        <class>com.bear.section01.entity.Member</class>
+        <class>com.bear.section02.enumType.Member</class>
+        <class>com.bear.section03.field.Member</class>
+
+        <!-- practice 엔티티 -->
+        <class>com.bear.practice.ColumnMember</class>
+        <class>com.bear.practice.EntityNameMember</class>
+        <class>com.bear.practice.EnumMember</class>
+        <class>com.bear.practice.IdentityMember</class>
+        <class>com.bear.practice.PropertyAccessMember</class>
+        <properties>
+
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="jakarta.persistence.jdbc.user" value="root"/>
+            <property name="jakarta.persistence.jdbc.password" value="slx-ai-2026"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/menudb"/>
+
+            <!--hibernate설정: JPA에 의해 실행되는 쿼리문이 콘솔에서 보이게-->
+            <property name="hibernate.show_sql" value="true"/>
+            <!--sql 구문을 개행처리해서 보기 좋게 출력-->
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.highlight_sql" value="true"/>
+
+            <!--
+            엔티티 클래스를 기준으로 Hibernate가 DDL(테이블 생성, 삭제)를 자동으로 수행하는 설정
+            - none  : 아무 것도 하지 않음(default)
+            - create    : 실행할 때마다 기존 drop, 새로 생성
+            - create-drop: create와 같지만 어플리케이션 종료할 때 drop
+            - update    : 기존 테이블을 유지한 채 변경된 부분(컬럼 추가)만 반영 (삭제 or 타입 변경은 반영 안 됨)
+            - validate  : DDL 실행을 하지 않고 구조가 맞는지 검증만 진행
+            -->
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
+        </properties>
+
+    </persistence-unit>
+
+</persistence>

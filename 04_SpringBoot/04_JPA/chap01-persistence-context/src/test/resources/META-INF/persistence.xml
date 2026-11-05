@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd"
+             version="3.2">
+
+<!-- 엔티티 매니저 팩토리를 식별하기 위한 이름 설정-->
+    <persistence-unit name="jpatest">
+<!-- 엔티티 클래스를 정의 -->
+        <class>com.bear.practice.Menu</class>
+        <class>com.bear.section02.crud.Menu</class>
+        <class>com.bear.section03.persistence.Menu</class>
+
+        <properties>
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="jakarta.persistence.jdbc.user" value="root"/>
+            <property name="jakarta.persistence.jdbc.password" value="slx-ai-2026"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/menudb"/>
+
+<!--hibernate설정: JPA에 의해 실행되는 쿼리문이 콘솔에서 보이게-->
+            <property name="hibernate.show_sql" value="true"/>
+<!--sql 구문을 개행처리해서 보기 좋게 출력-->
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.highlight_sql" value="true"/>
+        </properties>
+
+    </persistence-unit>
+
+</persistence>

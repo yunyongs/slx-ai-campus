@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd"
+             version="3.2">
+
+    <!--
+    chap02-2-mapping 실습용 영속성 단위
+    - 모든 테스트 클래스가 @BeforeAll 에서 Persistence.createEntityManagerFactory("mappinglab") 로 이 설정을 읽는다.
+    - 테이블은 모두 lab_ 으로 시작한다 → menudb 의 기존 tbl_* 테이블은 건드리지 않는다.
+    -->
+    <persistence-unit name="mappinglab">
+
+        <!-- 1. 스키마 자동 생성 -->
+        <class>com.bear.section01.schema.SchemaMember</class>
+        <!-- 2. Entity 와 Table -->
+        <class>com.bear.section02.entity.LabMember</class>
+        <!-- 3. Column 과 기본 타입 매핑 -->
+        <class>com.bear.section03.column.LabProduct</class>
+        <!-- 4. Primary Key 생성 전략 -->
+        <class>com.bear.section04.pk.AssignedItem</class>
+        <class>com.bear.section04.pk.IdentityItem</class>
+        <class>com.bear.section04.pk.SequenceItem</class>
+        <class>com.bear.section04.pk.TableItem</class>
+        <class>com.bear.section04.pk.AutoItem</class>
+        <class>com.bear.section04.pk.UuidItem</class>
+        <!-- 5. Enum -->
+        <class>com.bear.section05.enumtype.EnumMember</class>
+        <!-- 6. Access (FIELD / PROPERTY) -->
+        <class>com.bear.section06.access.FieldAccessMember</class>
+        <class>com.bear.section06.access.PropertyAccessMember</class>
+        <!-- 7. 복합 키 (@EmbeddedId / @IdClass) -->
+        <class>com.bear.section07.compositekey.CartItem</class>
+        <class>com.bear.section07.compositekey.BookLike</class>
+
+        <properties>
+            <property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="jakarta.persistence.jdbc.user" value="root"/>
+            <property name="jakarta.persistence.jdbc.password" value="slx-ai-2026"/>
+            <property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/menudb"/>
+
+            <!-- JPA 가 실행하는 SQL(DDL 포함)을 콘솔에 보기 좋게 출력 -->
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.highlight_sql" value="true"/>
+
+            <!--
+            스키마 자동 생성 (1-2. 주요 설정값)
+            - create : EntityManagerFactory 를 만들 때 위 <class> 들의 테이블을 DROP 하고 다시 CREATE
+                       → 테스트 클래스마다 @BeforeAll 에서 EMF 를 새로 만드므로, 클래스마다 빈 lab_* 테이블로 시작한다.
+            - validate 는 A_SchemaAutoGenerationTest 안에서 코드로 바꿔서 실험한다.
+            -->
+            <property name="hibernate.hbm2ddl.auto" value="create"/>
+        </properties>
+    </persistence-unit>
+
+</persistence>

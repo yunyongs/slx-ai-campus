@@ -134,6 +134,8 @@ flowchart LR
 
 ### 2. 실행 흐름 — 시나리오 1번 요청 `GET /enum-error/users/5`
 
+#### 2-1. `findUser()` 경로 — `GET /enum-error/users/5`
+
 ```mermaid
 flowchart TD
     A([프론트엔드<br/>GET /enum-error/users/5]) --> DS["DispatcherServlet<br/>@RequestMapping(enum-error) + @GetMapping(/users/{userNo}) 매칭"]
@@ -141,24 +143,35 @@ flowchart TD
     B --> C1{"userNo < 1 ?<br/>(요구 2)"}
     C1 -- "예 (0)" --> T1["② BusinessException.java<br/>new BusinessException(ErrorCode.INVALID_USER_NUMBER)<br/>생성자 ① → getMessage() = null"]
     C1 -- "아니오 (5)" --> C2{"users.get(5) == null ?<br/>(요구 1)"}
-    C2 -- "예" --> T2["② BusinessException.java<br/>new BusinessException(ErrorCode.USER_NOT_FOUND,<br/>'회원번호 5에 해당하는 회원이 없습니다.')<br/>생성자 ② → super(message)"]
     C2 -- "아니오 (1, 2)" --> OK["ResponseEntity.ok().build()<br/>→ 200, 본문 없음"]
+    C2 -- "예" --> T2["② BusinessException.java<br/>new BusinessException(ErrorCode.USER_NOT_FOUND,<br/>'회원번호 5에 해당하는 회원이 없습니다.')<br/>생성자 ② → super(message)"]
+    T1 -.-> GO(["throw → 2-3 핸들러로"])
+    T2 -.-> GO
+```
 
+#### 2-2. `check()` 경로 — `GET /enum-error/users/check-name?userName=홍길동`
+
+```mermaid
+flowchart TD
     A3([프론트엔드<br/>GET /enum-error/users/check-name?userName=홍길동]) --> DS3["DispatcherServlet<br/>글자 그대로 경로가 {userNo}보다 우선"]
     DS3 --> B3["⑤ EnumExceptionController.java<br/>check(@RequestParam String userName)"]
     B3 --> C3{"users.containsValue(userName) ?<br/>(요구 3)"}
-    C3 -- "예" --> T3["② BusinessException.java<br/>new BusinessException(ErrorCode.DUPLICATE_USER_NAME,<br/>'홍길동은(는) 이미 등록된 이름입니다.')<br/>생성자 ②"]
     C3 -- "아니오" --> OK3["ResponseEntity.ok().build() → 200"]
+    C3 -- "예" --> T3["② BusinessException.java<br/>new BusinessException(ErrorCode.DUPLICATE_USER_NAME,<br/>'홍길동은(는) 이미 등록된 이름입니다.')<br/>생성자 ②"]
+    T3 -.-> GO3(["throw → 2-3 핸들러로"])
+```
 
-    T1 & T2 & T3 -. "throw → findUser()/check() 즉시 종료<br/>DispatcherServlet이 예외를 받음" .-> H["④ EnumExceptionHandler.java<br/>@ExceptionHandler(BusinessException.class)<br/>handleBusinessException(businessException)"]
+#### 2-3. 공통 — 핸들러가 예외를 JSON 응답으로 바꾸는 과정 (시나리오 1번 값으로)
 
+```mermaid
+flowchart TD
+    IN(["2-1 / 2-2 에서 throw<br/>findUser()/check() 즉시 종료, DispatcherServlet 이 예외를 받음"]) -.-> H["④ EnumExceptionHandler.java<br/>@ExceptionHandler(BusinessException.class)<br/>handleBusinessException(businessException)"]
     H --> H1["② BusinessException.java<br/>getErrorCode() → ErrorCode.USER_NOT_FOUND"]
-    H --> H2["③ ErrorResponse.java<br/>static from(businessException)"]
+    H1 --> H2["③ ErrorResponse.java<br/>static from(businessException)"]
     H2 --> H3["① ErrorCode.java<br/>getHttpStatus().value() → 404<br/>getCode() → 'USER_NOT_FOUND'<br/>getMessage() → '회원을 찾을 수 없습니다.'"]
-    H2 --> H4["② BusinessException.java<br/>getMessage() → '회원번호 5에 해당하는 회원이 없습니다.'"]
-    H3 & H4 --> H5["③ ErrorResponse.java<br/>new ErrorResponse(404, 'USER_NOT_FOUND',<br/>'회원을 찾을 수 없습니다.', '회원번호 5에 …')"]
-    H1 --> R["ResponseEntity<br/>.status(errorCode.getHttpStatus())  ← 404<br/>.body(response)"]
-    H5 --> R
+    H3 --> H4["② BusinessException.java<br/>getMessage() → '회원번호 5에 해당하는 회원이 없습니다.'"]
+    H4 --> H5["③ ErrorResponse.java<br/>new ErrorResponse(404, 'USER_NOT_FOUND',<br/>'회원을 찾을 수 없습니다.', '회원번호 5에 …')"]
+    H5 --> R["④ EnumExceptionHandler.java<br/>ResponseEntity.status(errorCode.getHttpStatus())  ← 404<br/>.body(response)"]
     R --> Z([프론트엔드<br/>404 + JSON<br/>status · code · message · detail<br/>(요구 4)])
 ```
 
@@ -495,7 +508,9 @@ from
 
 #### 다이어그램
 
-세 요청이 지나가는 파일과 메서드. 왼쪽부터 GET / POST / PUT.
+세 요청이 지나가는 파일과 메서드. 요청마다 차트를 따로 두었다.
+
+**① GET /api/menus — 전체 조회**
 
 ```mermaid
 flowchart TD
@@ -504,22 +519,32 @@ flowchart TD
     G2 --> G3["MenuRepository.java / findAll()<br/>→ SELECT ... FROM tbl_menu"]
     G3 --> G4["List&lt;Menu&gt; → stream().map(MenuResponseDTO::from)"]
     G4 --> G5["List&lt;MenuResponseDTO&gt; 를 JSON 배열로 응답"]
+```
 
+**② POST /api/menus — 등록**
+
+```mermaid
+flowchart TD
     P["POST /api/menus<br/>본문: MenuRequestDTO JSON"] --> P1["MenuController.java / create(@RequestBody)"]
     P1 --> P2["MenuService.java / create()<br/>@Transactional 시작"]
     P2 --> P3["Menu.java / 생성자(이름, 가격, 카테고리, 상태)<br/>→ change() 호출"]
     P3 --> P4["MenuRepository.java / save(menu)<br/>→ INSERT INTO tbl_menu ..."]
     P4 --> P5["DB 가 정한 menu_code 가 menu 객체에 채워짐"]
     P5 --> P6["MenuResponseDTO.from(savedMenu) 응답<br/>@Transactional 커밋"]
+```
 
+**③ PUT /api/menus/{menuCode} — 수정**
+
+```mermaid
+flowchart TD
     U["PUT /api/menus/{menuCode}<br/>본문: MenuRequestDTO JSON"] --> U1["MenuController.java / update(@PathVariable, @RequestBody)"]
     U1 --> U2["MenuService.java / update()<br/>@Transactional 시작"]
     U2 --> U3["MenuRepository.java / findById(menuCode)<br/>→ SELECT ... WHERE menu_code=?"]
     U3 --> U4{"행이 있나?"}
-    U4 -->|"없음"| U5["ResponseStatusException(404)"]
+    U4 -->|"없음"| U5["ResponseStatusException(404)<br/>트랜잭션 롤백"]
     U4 -->|"있음"| U6["Menu.java / change(이름, 가격, 카테고리, 상태)"]
-    U6 --> U7["MenuResponseDTO.from(menu) 반환<br/>@Transactional 커밋 → 바뀐 값이 있으면 UPDATE"]
     U5 -.-> U8["Spring 기본 오류 JSON<br/>status 404"]
+    U6 --> U7["MenuResponseDTO.from(menu) 반환<br/>@Transactional 커밋 → 바뀐 값이 있으면 UPDATE"]
 ```
 
 단계별 설명 (PUT 기준):
@@ -676,17 +701,12 @@ where menu_code=?                                           -- 커밋 직전 flu
 
 ```mermaid
 flowchart TD
-    subgraph OUT["보관함 밖 (JPA 가 모르는 객체)"]
-        N["new Menu(...)<br/>비영속"]
-    end
-    subgraph PC["영속성 컨텍스트 = 보관함 (트랜잭션 하나 동안만 존재)"]
-        M["Menu 객체 (영속)<br/>+ 처음 값 스냅샷"]
-    end
+    N["보관함 밖 : new Menu(...)<br/>비영속 (JPA 가 모름)"]
     DB[("tbl_menu 의 행")]
-    N -->|"save()"| M
+    N -->|"save()"| M["영속성 컨텍스트 = 보관함 안<br/>Menu 객체 (영속) + 처음 값 스냅샷<br/>트랜잭션 하나 동안만 존재"]
     DB -->|"findById() / findAll()"| M
-    M -->|"커밋 때 스냅샷과 다르면 UPDATE"| DB
-    M -.->|"트랜잭션 끝 → 보관함 닫힘"| OUT
+    M -->|"커밋 때 스냅샷과 다르면 UPDATE"| DB2[("tbl_menu 의 행 (갱신)")]
+    M -.->|"트랜잭션 끝 → 보관함 닫힘"| D["보관함 밖 : 준영속<br/>바꿔도 DB 는 모름"]
 ```
 
 #### 실행 예시 (실행함)
@@ -725,24 +745,38 @@ flowchart TD
 
 #### 다이어그램
 
-세 메서드에서 엔티티가 보관함에 들어오는 지점. 굵은 화살표가 "들어오는 순간".
+세 메서드에서 엔티티가 보관함에 들어오는 지점. 메서드마다 차트를 따로 두었고, 굵은 화살표가 "들어오는 순간".
+
+**① `MenuService.java / findAll()` — 트랜잭션 없음**
 
 ```mermaid
 flowchart TD
-    subgraph F["MenuService.java / findAll()  (트랜잭션 없음)"]
-        F1["MenuRepository.java / findAll()"] ==>|"SELECT 결과 41개가 잠깐 영속"| F2["Menu.java 객체들"]
-        F2 --> F3["MenuResponseDTO.from() 으로 복사 → 보관함 닫힘"]
-    end
-    subgraph C["MenuService.java / create()  @Transactional"]
-        C1["Menu.java / 생성자 → new Menu(...)<br/>비영속 (보관함 밖)"] --> C2["MenuRepository.java / save(menu)"]
-        C2 ==>|"INSERT 즉시 실행, 번호 채워져 영속"| C3["Menu.java 객체 (영속)"]
-        C3 --> C4["MenuResponseDTO.from(savedMenu) → 커밋 → 보관함 닫힘"]
-    end
-    subgraph U["MenuService.java / update()  @Transactional"]
-        U1["MenuRepository.java / findById(menuCode)"] ==>|"SELECT 결과가 영속 + 스냅샷"| U2["Menu.java 객체 (영속)"]
-        U2 --> U3["Menu.java / change(...)<br/>필드만 바뀜"]
-        U3 --> U4["메서드 종료 → 스냅샷 비교 → UPDATE → 커밋 → 보관함 닫힘"]
-    end
+    F0(["MenuController.java / findAll() 에서 호출"]) --> F1["MenuRepository.java / findAll()<br/>잠깐 열린 보관함 안에서 SELECT"]
+    F1 ==>|"SELECT 결과 41개가 잠깐 영속"| F2["Menu.java 객체 41개"]
+    F2 --> F3["MenuResponseDTO.from() 으로 복사"]
+    F3 --> F4(["보관함 닫힘 → DTO 목록만 컨트롤러로"])
+```
+
+**② `MenuService.java / create()` — @Transactional**
+
+```mermaid
+flowchart TD
+    C0(["트랜잭션 시작 = 보관함 열림"]) --> C1["Menu.java / 생성자 → new Menu(...)<br/>비영속 (보관함 밖)"]
+    C1 --> C2["MenuRepository.java / save(menu)"]
+    C2 ==>|"INSERT 즉시 실행, 번호 채워져 영속"| C3["Menu.java 객체 (영속)"]
+    C3 --> C4["MenuResponseDTO.from(savedMenu)"]
+    C4 --> C5(["커밋 → 보관함 닫힘"])
+```
+
+**③ `MenuService.java / update()` — @Transactional**
+
+```mermaid
+flowchart TD
+    U0(["트랜잭션 시작 = 보관함 열림"]) --> U1["MenuRepository.java / findById(menuCode)"]
+    U1 ==>|"SELECT 결과가 영속 + 스냅샷"| U2["Menu.java 객체 (영속)"]
+    U2 --> U3["Menu.java / change(...)<br/>필드만 바뀜, SQL 없음"]
+    U3 --> U4["메서드 종료 → 스냅샷 비교 → UPDATE"]
+    U4 --> U5(["커밋 → 보관함 닫힘"])
 ```
 
 #### 실행 예시
