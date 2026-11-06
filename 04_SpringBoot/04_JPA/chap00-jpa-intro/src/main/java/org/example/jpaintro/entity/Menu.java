@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Fetch;
 
 @Entity // 테이블의 한 행 - 하나의 레코드라고 볼 수 있다.
 @Table(name = "tbl_menu")
@@ -21,21 +22,23 @@ public class Menu {
     @Column(name = "menu_name")
     private String menuName;
 
+
     @Column(name = "menu_price")
     private Integer menuPrice;
 
-    @Column(name = "category_code")
-    private Integer categoryCode;
+    @ManyToOne(fetch= FetchType.LAZY)
+    @JoinColumn(name = "category_code")
+    private Category categoryCode;
 
     @Column(name = "orderable_status")
     private String orderableStatus;
 
-    public Menu(String menuName, Integer menuPrice, Integer categoryCode, String orderableStatus) {
+    public Menu(String menuName, Integer menuPrice, Category categoryCode, String orderableStatus) {
         change(menuName, menuPrice, categoryCode, orderableStatus);
     }
 
     //엔티티는 수정하면 안 되기 때문에 setter를 두지 않는다. 대신 change 메서드를 두어 모든 필드 값이 한꺼번에 바뀌도록 한다
-    public void change(String menuName, Integer menuPrice, Integer categoryCode, String orderableStatus) {
+    public void change(String menuName, Integer menuPrice, Category categoryCode, String orderableStatus) {
         this.menuName = menuName;
         this.menuPrice = menuPrice;
         this.categoryCode = categoryCode;

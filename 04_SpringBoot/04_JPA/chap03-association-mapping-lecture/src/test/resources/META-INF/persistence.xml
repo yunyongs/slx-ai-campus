@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence xmlns="https://jakarta.ee/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_2.xsd"
+             version="3.2">
+
+	<!-- 엔티티 매니저 팩토리를 식별하기 위한 이름 설정 -->
+	<persistence-unit name="jpatest">
+		<class>com.bear.section01.manytoone.MenuAndCategory</class>
+		<class>com.bear.section01.manytoone.Category</class>
+		<class>com.bear.section02.onetomany.CategoryAndMenu</class>
+		<class>com.bear.section02.onetomany.Menu</class>
+		<class>com.bear.section03.bidirection.Category</class>
+		<class>com.bear.section03.bidirection.Menu</class>
+		<!-- practice 엔티티 (Practice.java 에서 사용) -->
+		<class>com.bear.practice.PracticeCategory</class>
+		<class>com.bear.practice.PracticeMenu</class>
+
+
+		<properties>
+
+			<!-- 데이터 베이스 연결 정보 -->
+			<property name="jakarta.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+			<property name="jakarta.persistence.jdbc.user" value="root"/>
+			<property name="jakarta.persistence.jdbc.password" value="slx-ai-2026"/>
+			<property name="jakarta.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/menudb"/>
+
+			<!-- hibernate 설정 (실행 되는 sql 구문을 format 형태로 보여준다) -->
+			<property name="hibernate.show_sql" value="true"/>
+			<property name="hibernate.format_sql" value="true"/>
+			<property name="hibernate.highlight_sql" value="true"/>
+		</properties>
+
+	</persistence-unit>
+
+</persistence>
